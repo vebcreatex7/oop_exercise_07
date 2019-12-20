@@ -8,7 +8,7 @@ void TDocument::Save(std::ostream& os) {
 }
 
 void TDocument::Add(std::shared_ptr<TFigure> f, int idx) {
-	std::shared_ptr<TComand> tmp(new TComand(f, "insert", idx));
+	std::shared_ptr<TComand> tmp(new TComand(nullptr, "insert", idx));
 	figures.insert(figures.begin() + idx, std::move(f));
 	comands.push_back(std::move(tmp));
 }
