@@ -1,60 +1,73 @@
 #include "document.h"
 
+void TDocument::New() {
+	figures.clear();
+	FigureId = 0;
+}
+
 void TDocument::Save(std::ostream& os) {
 	for (auto &tmp : figures) {
-		os << tmp->Name();
 		tmp->Print(os);
 	}
 }
 
 void TDocument::Add(std::shared_ptr<TFigure> f, int idx) {
-	std::shared_ptr<TComand> tmp(new TComand(nullptr, "insert", idx));
 	figures.insert(figures.begin() + idx, std::move(f));
-	comands.push_back(std::move(tmp));
 }
 
 void TDocument::Delete(int idx) {
-	std::shared_ptr<TComand> tmp(new TComand(figures[idx], "delete", idx));
 	figures.erase(figures.begin() + idx);
-	comands.push_back(std::move(tmp));
-	
 }
 
-void TDocument::Print(std::ostream& os) {
+void TDocument::Print() {
 	for (auto &tmp : figures) {
-		std::cout << tmp->Name();
-		tmp->Print(os);
+
+		tmp->Print(std::cout);
 		std::cout << "Square: " << tmp->Square() << std::endl;
 		std::cout << "Center: " << tmp->Center() << std::endl;
 	}
 }
 
 void TDocument::Load(std::istream& is) {
-	std::string name;
-	while(is >> name)
-	if (name == "rectangle") {
-		std::shared_ptr<TFigure> f(new TRectangle(is));
-		figures.push_back(std::move(f));
-	} else if (name == "rhombus") {
-		std::shared_ptr<TFigure> f(new TRhombus(is));
-		figures.push_back(std::move(f));
-	} else if (name == "trapezoid") {
-		std::shared_ptr<TFigure> f(new TTrapezoid(is));
-		figures.push_back(std::move(f));
+	this->New();
+	int num;
+	is >> num;
+	while (num --) {
+		this->Add();
 	}
 }
 
-void TDocument::Undo() {
-	if (comands.size() == 0) {
-		throw std::logic_error("list of comands is empty\n");
+void TDocument::popBack() {
+	if (!figures.size()) {
+		throw std::logic_error("Doc is empty\n");
 	}
-	if (comands.back()->comand == "delete") {
-		figures.insert(figures.begin() + comands.back()->index, std::move(comands.back()->f));	
-		comands.pop_back();
+	figures.pop_back();
+}
 
-	} else if (comands.back()->comand == "insert") {
-		figures.erase(figures.begin() + comands.back()->index);
-		comands.pop_back();
+std::shared_ptr<TFigure> TDocument::Get(int idx) {
+	for (const auto& figure : figures) {
+		if (idx == figure->getId()) {
+			return figure;
+		}
 	}
+	throw std::invalid_argument("No figure with such Id\n");
+}
+
+void TDocument::Add() {
+	std::shared_ptr<TFigure> figure = this->factory.FigureCreate(FigureId);
+	if (figure) {
+		figures.push_back(figure);
+		FigureId++;
+	}
+}
+
+int TDocument::Pos(int idx) {
+	for (int i = 0; i < figures.size(); i ++) {
+		if (idx == figures[i]->getId()) {
+			return i;
+		}
+	}
+	throw std::invalid_argument("No figure with such Id\n");
+
 }
 

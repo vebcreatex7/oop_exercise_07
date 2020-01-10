@@ -1,6 +1,6 @@
 #include "trapezoid.h"
 
-TTrapezoid::TTrapezoid (const TPoint p1, const TPoint p2, const TPoint p3, const TPoint p4) {
+TTrapezoid::TTrapezoid (const TPoint p1, const TPoint p2, const TPoint p3, const TPoint p4, int id) {
 	a = p1;
 	b = p2;
 	c = p3;
@@ -17,12 +17,13 @@ TTrapezoid::TTrapezoid (const TPoint p1, const TPoint p2, const TPoint p3, const
 	if (acos((ab.x * dc.x + ab.y * dc.y) / (sqrt(ab.x * ab.x + ab.y * ab.y) * sqrt(dc.x * dc.x + dc.y * dc.y))) != 0 && acos((ad.x * bc.x + ad.y * bc.y) / (sqrt(ad.x * ad.x + ad.y * ad.y) * sqrt(bc.x * bc.x + bc.y * bc.y))) != 0) {
 		throw std::logic_error("it's not trapezoid\n");
 	}
+	this->id = id;
 	
 	//assert(acos((ab.x * dc.x + ab.y * dc.y) / (sqrt(ab.x * ab.x + ab.y * ab.y) * sqrt(dc.x * dc.x + dc.y * dc.y))) == 0 || acos((ad.x * bc.x + ad.y * bc.y) / (sqrt(ad.x * ad.x + ad.y * ad.y) * sqrt(bc.x * bc.x + bc.y * bc.y))) == 0);
 
 }
 
-TTrapezoid::TTrapezoid(std::istream& is) {
+TTrapezoid::TTrapezoid(std::istream& is, int id) {
 	is >> a >> b >> c >> d;
 	TPoint ab, ad, bc, dc;
 	ab.x = b.x - a.x;
@@ -36,6 +37,7 @@ TTrapezoid::TTrapezoid(std::istream& is) {
 	if (acos((ab.x * dc.x + ab.y * dc.y) / (sqrt(ab.x * ab.x + ab.y * ab.y) * sqrt(dc.x * dc.x + dc.y * dc.y))) != 0 && acos((ad.x * bc.x + ad.y * bc.y) / (sqrt(ad.x * ad.x + ad.y * ad.y) * sqrt(bc.x * bc.x + bc.y * bc.y))) != 0) {
 		throw std::logic_error("it's not trapezoid\n");
 	}
+	this->id = id;
 
 }
 
@@ -59,9 +61,10 @@ double TTrapezoid::Square() const {
 }
 
 void TTrapezoid::Print(std::ostream& os) const {
+	os << "ID: " << id << " trapezoid: ";
 	os << a << " " << b << " " << c << " " << d << "\n";
 }
 
-std::string TTrapezoid::Name() const{
-	return "trapezoid ";
+int TTrapezoid::getId() const {
+	return id;
 }

@@ -1,13 +1,7 @@
-#ifndef DOCUMENT_H
-#define DOCUMENT_H
-
+#pragma once
 
 #include "figure.h"
-#include "point.h"
-#include "rectangle.h"
-#include "rhombus.h"
-#include "trapezoid.h"
-#include "comand.h"
+#include "factory.h"
 #include <memory>
 #include <vector>
 #include <string>
@@ -15,19 +9,24 @@
 
 
 class TDocument {
-private:
-	std::vector<std::shared_ptr<TFigure>> figures;
-	std::vector<std::shared_ptr<TComand>> comands;
+	friend class TComand;
 public:
-	TDocument() {}
+	TDocument() : FigureId(0) {};
+	void New();
 	void Save(std::ostream& os);
 	void Load(std::istream& is);
-	void Print(std::ostream& os);
+	void Print();
+	void Add();
 	void Add(std::shared_ptr<TFigure> f, int idx);
 	void Delete(int idx);
-	void Undo();
-	void AddCmd(TComand cmd);
+	std::shared_ptr<TFigure> Get(int idx);
+	void popBack();
+	int Pos(int idx);
+private:
+	int FigureId;
+	std::vector<std::shared_ptr<TFigure>> figures;
+	Factory factory;
+	void Serialize(const std::string& file);
+	void Deserialize(const std::string& file);
 };
 
-
-#endif

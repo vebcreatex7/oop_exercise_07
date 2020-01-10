@@ -10,11 +10,17 @@
 #include <string>
 
 
+enum class Figures {
+	Rectangle,
+	Rhombus,
+	Trapezodid
+};
+
 class TFigure {
 public:
-	virtual std::string Name() const = 0;
 	virtual void Print(std::ostream&) const = 0;
 	virtual TPoint Center() const = 0;
 	virtual double Square() const = 0;
+	virtual int getId() const = 0;
 };
 #endif
