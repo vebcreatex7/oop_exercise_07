@@ -1,0 +1,94 @@
+new - to create new document
+insert- to insert figure to document 
+delete idx- to delete figure on position idx from document
+undo - to cancel last comand
+save - to save document in file
+load - to load document from file
+print - to print all figure
+help - to show this page
+exit - to finish execution of program
+new
+insert rectangle 0 0 0 1 1 1 1 0
+insert trapezoid 0 0 0 2 2 2 2 0
+insert rhombus 0 0 0 3 3 3 3 0
+print
+rectangle 0 0 0 1 1 1 1 0
+Square: 1
+Center: 0.5 0.5
+trapezoid 0 0 0 2 2 2 2 0
+Square: 4
+Center: 1 1
+rhombus 0 0 0 3 3 3 3 0
+Square: 9
+Center: 1.5 1.5
+save file.txt
+delete 0
+print   
+trapezoid 0 0 0 2 2 2 2 0
+Square: 4
+Center: 1 1
+rhombus 0 0 0 3 3 3 3 0
+Square: 9
+Center: 1.5 1.5
+delete 2
+No figure with such Id
+
+delete 1
+delete 0
+print
+load file.txt
+print
+rectangle 0 0 0 1 1 1 1 0
+Square: 1
+Center: 0.5 0.5
+trapezoid 0 0 0 2 2 2 2 0
+Square: 4
+Center: 1 1
+rhombus 0 0 0 3 3 3 3 0
+Square: 9
+Center: 1.5 1.5
+undo
+Stack comands is empty
+
+delete 1
+print
+rectangle 0 0 0 1 1 1 1 0
+Square: 1
+Center: 0.5 0.5
+rhombus 0 0 0 3 3 3 3 0
+Square: 9
+Center: 1.5 1.5
+undo
+print
+rectangle 0 0 0 1 1 1 1 0
+Square: 1
+Center: 0.5 0.5
+trapezoid 0 0 0 2 2 2 2 0
+Square: 4
+Center: 1 1
+rhombus 0 0 0 3 3 3 3 0
+Square: 9
+Center: 1.5 1.5
+delete 0
+delete 0
+delete 0
+print
+undo 
+unod
+Wrong comand
+undo
+undo
+undo
+Stack comands is empty
+
+print
+rectangle 0 0 0 1 1 1 1 0
+Square: 1
+Center: 0.5 0.5
+trapezoid 0 0 0 2 2 2 2 0
+Square: 4
+Center: 1 1
+rhombus 0 0 0 3 3 3 3 0
+Square: 9
+Center: 1.5 1.5
+exit
