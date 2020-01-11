@@ -1,6 +1,6 @@
 #include "rectangle.h"
 
-TRectangle::TRectangle (const TPoint p1, const TPoint p2, const TPoint p3, const TPoint p4, int id) {
+TRectangle::TRectangle (const TPoint p1, const TPoint p2, const TPoint p3, const TPoint p4) {
 	a = p1;
 	b = p2;
 	c = p3;
@@ -17,11 +17,10 @@ TRectangle::TRectangle (const TPoint p1, const TPoint p2, const TPoint p3, const
 	if (acos((ab.x * ad.x + ab.y * ad.y) / (sqrt(ab.x * ab.x + ab.y * ab.y) * sqrt(ad.x * ad.x + ad.y * ad.y))) / M_PI != 0.5 || acos((cb.x * cd.x + cb.y * cd.y) / (sqrt(cb.x * cb.x + cb.y * cb.y) * sqrt(cd.x * cd.x + cd.y * cd.y))) / M_PI != 0.5) {
 		throw std::logic_error("it's not rectangle\n");
 	}
-	this->id = id;
 	//assert(acos((ab.x * ad.x + ab.y * ad.y) / (sqrt(ab.x * ab.x + ab.y * ab.y) * sqrt(ad.x * ad.x + ad.y * ad.y))) / M_PI == 0.5 && acos((cb.x * cd.x + cb.y * cd.y) / (sqrt(cb.x * cb.x + cb.y * cb.y) * sqrt(cd.x * cd.x + cd.y * cd.y))) / M_PI == 0.5);
 }
 
-TRectangle::TRectangle(std::istream& is, int id) {
+TRectangle::TRectangle(std::istream& is) {
 	is >> a >> b >> c >> d;
 	TPoint ab, ad, cb, cd;
 	ab.x = b.x - a.x;
@@ -35,7 +34,7 @@ TRectangle::TRectangle(std::istream& is, int id) {
 	if (acos((ab.x * ad.x + ab.y * ad.y) / (sqrt(ab.x * ab.x + ab.y * ab.y) * sqrt(ad.x * ad.x + ad.y * ad.y))) / M_PI != 0.5 || acos((cb.x * cd.x + cb.y * cd.y) / (sqrt(cb.x * cb.x + cb.y * cb.y) * sqrt(cd.x * cd.x + cd.y * cd.y))) / M_PI != 0.5) {
 		throw std::logic_error("it's not rectangle\n");
 	}
-	this->id = id;
+
 }
 
 double TRectangle::Square () const {
@@ -54,10 +53,7 @@ TPoint TRectangle::Center() const {
 }
 
 void TRectangle::Print(std::ostream& os) const {
-	os << "ID: " << id << " rectangle: ";
+	os << "rectangle ";
 	os <<  a << " " << b << " " << c << " " << d << "\n";
 }
 
-int TRectangle::getId() const {
-	return id;
-}

@@ -1,12 +1,15 @@
 #include "document.h"
+#include <string>
 
 void TDocument::New() {
 	figures.clear();
-	FigureId = 0;
 }
 
 void TDocument::Save(std::ostream& os) {
+	int i = 0;
 	for (auto &tmp : figures) {
+		os << i << " ";
+		i++;
 		tmp->Print(os);
 	}
 }
@@ -31,9 +34,13 @@ void TDocument::Print() {
 void TDocument::Load(std::istream& is) {
 	this->New();
 	int num;
-	is >> num;
-	while (num --) {
-		this->Add();
+			std::string n;
+	while (is >> num) {
+
+		std::shared_ptr<TFigure> figure = this->factory.FigureCreate(is);
+		if (figure) {
+			figures.push_back(figure);
+		}
 	}
 }
 
@@ -45,29 +52,21 @@ void TDocument::popBack() {
 }
 
 std::shared_ptr<TFigure> TDocument::Get(int idx) {
+	int i = 0;
 	for (const auto& figure : figures) {
-		if (idx == figure->getId()) {
+		if (i == idx)  {
 			return figure;
 		}
+		i++;
 	}
 	throw std::invalid_argument("No figure with such Id\n");
 }
 
 void TDocument::Add() {
-	std::shared_ptr<TFigure> figure = this->factory.FigureCreate(FigureId);
+	std::shared_ptr<TFigure> figure = this->factory.FigureCreate(std::cin);
 	if (figure) {
 		figures.push_back(figure);
-		FigureId++;
-	}
-}
 
-int TDocument::Pos(int idx) {
-	for (int i = 0; i < figures.size(); i ++) {
-		if (idx == figures[i]->getId()) {
-			return i;
-		}
 	}
-	throw std::invalid_argument("No figure with such Id\n");
-
 }
 

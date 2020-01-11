@@ -1,6 +1,6 @@
 #include "rhombus.h"
 
-TRhombus::TRhombus (const TPoint p1, const TPoint p2, const TPoint p3, const TPoint p4, int id) {
+TRhombus::TRhombus (const TPoint p1, const TPoint p2, const TPoint p3, const TPoint p4) {
 	a = p1;
 	b = p2;
 	c = p3;
@@ -17,12 +17,11 @@ TRhombus::TRhombus (const TPoint p1, const TPoint p2, const TPoint p3, const TPo
 	if (sqrt(ab.x * ab.x + ab.y * ab.y) !=  sqrt(bc.x * bc.x + bc.y * bc.y) || sqrt(bc.x * bc.x + bc.y * bc.y) != sqrt(cd.x * cd.x + cd.y * cd.y) || sqrt(cd.x * cd.x + cd.y * cd.y) != sqrt(da.x * da.x + da.y * da.y)) {
 		throw std::logic_error("it's not rhombus\n");
 	}
-	this->id = id;
 	//assert(sqrt(ab.x * ab.x + ab.y * ab.y) ==  sqrt(bc.x * bc.x + bc.y * bc.y) && sqrt(bc.x * bc.x + bc.y * bc.y) == sqrt(cd.x * cd.x + cd.y * cd.y) && sqrt(cd.x * cd.x + cd.y * cd.y) == sqrt(da.x * da.x + da.y * da.y));
 
 }
 
-TRhombus::TRhombus(std::istream& is, int id) {
+TRhombus::TRhombus(std::istream& is) {
 	is >> a >> b >> c >> d;
 	TPoint ab, bc, cd, da;
 	ab.x = b.x - a.x;
@@ -36,7 +35,7 @@ TRhombus::TRhombus(std::istream& is, int id) {
 	if (sqrt(ab.x * ab.x + ab.y * ab.y) !=  sqrt(bc.x * bc.x + bc.y * bc.y) || sqrt(bc.x * bc.x + bc.y * bc.y) != sqrt(cd.x * cd.x + cd.y * cd.y) || sqrt(cd.x * cd.x + cd.y * cd.y) != sqrt(da.x * da.x + da.y * da.y)) {
 		throw std::logic_error("it's not rhombus\n");
 	}
-	this->id = id;
+
 }
 
 double TRhombus::Square() const {
@@ -54,10 +53,7 @@ TPoint TRhombus::Center() const {
 }
 
 void TRhombus::Print(std::ostream& os) const {
-	os << "ID: " << id << " rhombus: ";
+	os << "rhombus ";
 	os << a << " " << b << " " << c << " " << d << "\n";
 }
 
-int TRhombus::getId() const {
-	return id;
-}

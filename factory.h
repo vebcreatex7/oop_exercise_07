@@ -10,17 +10,17 @@
 
 class Factory {
 public:
-	std::shared_ptr<TFigure> FigureCreate(int id) {
+	std::shared_ptr<TFigure> FigureCreate(std::istream& is) {
 		std::string type;
-		std::cin >> type;
+		is >> type;
 		if (type == "rectangle") {
-			 std::shared_ptr<TFigure> f(new TRectangle(std::cin, id));
+			 std::shared_ptr<TFigure> f(new TRectangle(is));
 			return f;
 		} else if (type == "rhombus") {
-			std::shared_ptr<TFigure> f(new TRhombus(std::cin, id));
+			std::shared_ptr<TFigure> f(new TRhombus(is));
 			return f;
 		} else if (type == "trapezoid") {
-			std::shared_ptr<TFigure> f(new TTrapezoid(std::cin, id));
+			std::shared_ptr<TFigure> f(new TTrapezoid(is));
 			return f;
 		} else {
 			throw std::logic_error("Wrong figure\n");

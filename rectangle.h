@@ -6,15 +6,13 @@
 class TRectangle : public TFigure {
 private:
 	TPoint a, b, c, d;
-	int id;
 public:
 	void Print(std::ostream& os) const override;
 	TPoint Center() const override;
 	double Square() const override;
-	int getId() const override;
 	TRectangle();
-	TRectangle(TPoint p1, TPoint p2, TPoint p3, TPoint p4, int id);
-	TRectangle(std::istream& is, int id);
+	TRectangle(TPoint p1, TPoint p2, TPoint p3, TPoint p4);
+	TRectangle(std::istream& is);
 };
 
 

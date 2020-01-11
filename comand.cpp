@@ -12,7 +12,7 @@ void InsertComand::Undo() {
 void RemoveComand::Exec() {
 	try {
 		figure = doc->Get(idx);
-		pos = doc->Pos(idx);
+		pos = idx;
 	} catch (std::exception& e) {
 		std::cout << e.what()  << std::endl;
 		return;
